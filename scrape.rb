@@ -24,9 +24,9 @@ loop do
 	puts "At item #{index}"
 	break if index >8300
 	######### Parse HTML #########
-	current_url = "http://collections.si.edu/search/results.htm?fq=object_type%3A%22Paintings%22&q=set_name%3A%22Smithsonian+American+Art+Museum+Collection%22&start=#{index}"
-	puts "Parsing #{current_url}"
-	sample = Nokogiri::HTML(open(current_url)) do |config|
+	puts "At item #{index}"
+
+	sample = Nokogiri::HTML(open("http://collections.si.edu/search/results.htm?fq=object_type%3A%22Paintings%22&q=set_name%3A%22Smithsonian+American+Art+Museum+Collection%22&start=#{index}")) do |config|
 		config.noblanks
 	end
 
