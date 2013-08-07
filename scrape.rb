@@ -5,8 +5,6 @@ require 'open-uri'
 def getContent(input)
 	if input == nil
 		return nil
-	elsif input.empty?
-		return nil
 	else
 		return input.content
 	end
