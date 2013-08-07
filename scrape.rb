@@ -21,7 +21,6 @@ csv_out << ["source","target"]
 index = 0
 
 loop do
-	puts "At item #{index}"
 	break if index >8300
 	######### Parse HTML #########
 	puts "At item #{index}"
