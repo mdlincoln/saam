@@ -2,6 +2,16 @@ require 'nokogiri'
 require 'csv'
 require 'open-uri'
 
+def getContent(input)
+	if input == nil
+		return nil
+	elsif input.empty?
+		return nil
+	else
+		return input.content
+	end
+end
+
 INPUT = "si.html"
 OUTPUT = "out.csv"
 
@@ -29,9 +39,9 @@ loop do
 		# Get keywords
 		puts
 		print "Keyword combos: "
-		keywords << record.at_css("dd.topic-first").content
+		keywords << getContent(record.at_css("dd.topic-first"))
 		record.css("dd.topic").each do |subtopic|
-			keywords << subtopic.content
+			keywords << getContent(subtopic)
 		end
 		keywords.combination(2).each do |array|
 			print "#"
