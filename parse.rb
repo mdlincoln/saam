@@ -1,40 +1,30 @@
 require 'nokogiri'
 require 'csv'
+require 'json'
 
-def getContent(input)
-	if input == nil
-		return nil
-	else
-		return input.content
-	end
+def normalizeDate(input)
+	return input.first.slice(/(\d*)(\D|$)/,1).to_i
 end
 
-INPUT = "saved.html"
+INPUT = "../si-scrape/output.json"
 OUTPUT = "out.csv"
 
 puts "Loading input..."
-sample = Nokogiri::HTML(open(INPUT))
+raw_data = JSON.parse(File.read(INPUT))
 csv_out = CSV.open(OUTPUT,"w")
-csv_out << ["source","target","type","date"]
+csv_out << ["source","target","label","type","date"]
 
-sample.css("div.record").each do |record|
+raw_data.each do |id, data|
+	puts id
+	unless data["Date"].nil?
+		date = normalizeDate(data["Date"])
+	end
 
-	raw_date = getContent(record.at_css("dd.date-first"))
-	if raw_date.nil?
-		# Skip and go to next record
-	else
-		date = raw_date.slice(/(\d*)(\D|$)/,1)
-		keywords = Array.new
-		# Get keywords
-		puts
-		print "#{date} Keyword combos: "
-		keywords << getContent(record.at_css("dd.topic-first"))
-		record.css("dd.topic").each do |subtopic|
-			keywords << getContent(subtopic)
-		end
-		keywords.combination(2).each do |array|
-			print "#"
-			csv_out << [array[0],array[1],"Undirected",date]
+	label = "#{data["Title"]} - #{id}"
+	
+	unless data["Topic"].nil?
+		data["Topic"].combination(2).each do |edge|
+			csv_out << [edge[0],edge[1],label,"Undirected",date]
 		end
 	end
 end
