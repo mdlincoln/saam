@@ -37,7 +37,11 @@ raw_data.each do |id, data|
 	label = "#{data["Title"]} - #{id}"
 	
 	unless data["Topic"].nil?
-		data["Topic"].combination(2).each do |edge|
+		topic_list = Array.new
+		data["Topic"].each do |t|
+			topic_list << cleanTopic(t)
+		end
+		topic_list.combination(2).each do |edge|
 			first_pass << [edge[0],edge[1],label,"Undirected",date]
 		end
 	end
