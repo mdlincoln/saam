@@ -12,16 +12,12 @@ def cleanTopic(input)
 end
 
 INPUT = "../si-scrape/output.json"
-OUTPUT_ONE = "1800-1849.csv"
-OUTPUT_TWO = "1850-1899.csv"
-OUTPUT_THREE = "1900-1935.csv"
-OUTPUT_FOUR = "1936-1965.csv"
-OUTPUT_FIVE = "1965-2011.csv"
 
 puts "Loading input..."
 raw_data = JSON.parse(File.read(INPUT))
 list_header = ["source","target","label","type","date"]
 first_pass = Array.new
+topic_list = Array.new
 
 prog_bar = ProgressBar.create(:title => "Records processed", :starting_at => 0, :total => raw_data.count, :format => '|%b>>%i| %p%% %t')
 
@@ -32,8 +28,11 @@ raw_data.each do |id, data|
 	end
 
 	label = "#{data["Title"]} - #{id}"
-	
+
 	unless data["Topic"].nil?
+		data["Topic"].each do |t|
+			topic_list << cleanTopic(t)
+		end
 		data["Topic"].combination(2).each do |edge|
 			first_pass << [edge[0],edge[1],label,"Undirected",date]
 		end
@@ -41,31 +40,7 @@ raw_data.each do |id, data|
 	prog_bar.increment
 end
 
-# Initialize CSV files
-one = CSV.open(OUTPUT_ONE,"w")
-one << list_header
-two = CSV.open(OUTPUT_TWO,"w")
-two << list_header
-three = CSV.open(OUTPUT_THREE,"w")
-three << list_header
-four = CSV.open(OUTPUT_FOUR,"w")
-four << list_header
-five = CSV.open(OUTPUT_FIVE,"w")
-five << list_header
+puts "Calculating unique topics list"
+topic_list.uniq!
 
-# Read out files
-first_pass.each do |entry|
-	case entry[4]
-	when 1800...1849 
-		one << entry
-	when 1850...1899
-		two << entry
-	when 1900...1935
-		three << entry
-	when 1936...1965
-		four << entry
-	when 1966...2011
-		five << entry
-	else
-	end
-end
+puts topic_list
