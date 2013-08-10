@@ -1,7 +1,6 @@
 require 'nokogiri'
 require 'csv'
 require 'json'
-require 'ruby-progressbar'
 
 def normalizeDate(input)
 	return input.first.slice(/(\d*)(\D|$)/,1).to_i
@@ -26,10 +25,9 @@ list_header = ["source","target","label","type","date"]
 first_pass = Array.new
 topic_list = Array.new
 
-prog_bar = ProgressBar.create(:title => "Records processed", :starting_at => 0, :total => raw_data.count, :format => '|%b>>%i| %p%% %t')
-
 # Create full edge list
 raw_data.each do |id, data|
+	puts id
 	unless data["Date"].nil?
 		date = normalizeDate(data["Date"])
 	end
@@ -45,7 +43,6 @@ raw_data.each do |id, data|
 			first_pass << [edge[0],edge[1],label,"Undirected",date]
 		end
 	end
-	prog_bar.increment
 end
 
 puts "Calculating unique topics list"
