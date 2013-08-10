@@ -7,6 +7,10 @@ def normalizeDate(input)
 	return input.first.slice(/(\d*)(\D|$)/,1).to_i
 end
 
+def cleanTopic(input)
+	return input.slice(/^\w*\\\w*/) # => This preserves the first two levels of tag hierarchy, removing the rest
+end
+
 INPUT = "../si-scrape/output.json"
 OUTPUT_ONE = "1800-1849.csv"
 OUTPUT_TWO = "1850-1899.csv"
