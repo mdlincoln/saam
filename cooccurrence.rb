@@ -8,7 +8,14 @@ def normalizeDate(input)
 end
 
 def cleanTopic(input)
-	return input.slice(/^\w*\\\w*/) # => This preserves the first two levels of tag hierarchy, removing the rest
+	topics = input.split("\\")
+	case topics.count
+	when 1
+		return topics[0]
+	when 2...10
+		return "#{topics[0]} - #{topics[1]}"
+	else
+	end
 end
 
 INPUT = "../si-scrape/output.json"
@@ -30,10 +37,11 @@ raw_data.each do |id, data|
 	label = "#{data["Title"]} - #{id}"
 
 	unless data["Topic"].nil?
+		topic_list = Array.new
 		data["Topic"].each do |t|
 			topic_list << cleanTopic(t)
 		end
-		data["Topic"].combination(2).each do |edge|
+		topic_list.combination(2).each do |edge|
 			first_pass << [edge[0],edge[1],label,"Undirected",date]
 		end
 	end
