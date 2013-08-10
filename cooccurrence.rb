@@ -7,19 +7,27 @@ def normalizeDate(input)
 	return input.first.slice(/(\d*)(\D|$)/,1).to_i
 end
 
-INPUT = "../si-scrape/output.json"
+def cleanTopic(input)
+	topics = input.split("\\")
+	case topics.count
+	when 1
+		return topics[0]
+	when 2...10
+		return "#{topics[0]} - #{topics[1]}"
+	else
+	end
+end
+
+INPUT = "output.json"
 OUTPUT_ONE = "1800-1849.csv"
 OUTPUT_TWO = "1850-1899.csv"
 OUTPUT_THREE = "1900-1935.csv"
 OUTPUT_FOUR = "1936-1965.csv"
 OUTPUT_FIVE = "1965-2011.csv"
 
-puts "Loading input..."
 raw_data = JSON.parse(File.read(INPUT))
 list_header = ["source","target","label","type","date"]
 first_pass = Array.new
-
-prog_bar = ProgressBar.create(:title => "Records processed", :starting_at => 0, :total => raw_data.count, :format => '|%b>>%i| %p%% %t')
 
 # Create full edge list
 raw_data.each do |id, data|
@@ -34,7 +42,6 @@ raw_data.each do |id, data|
 			first_pass << [edge[0],edge[1],label,"Undirected",date]
 		end
 	end
-	prog_bar.increment
 end
 
 # Initialize CSV files
