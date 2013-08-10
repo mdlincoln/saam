@@ -1,7 +1,6 @@
 require 'nokogiri'
 require 'csv'
 require 'json'
-require 'ruby-progressbar'
 
 def normalizeDate(input)
 	return input.first.slice(/(\d*)(\D|$)/,1).to_i
