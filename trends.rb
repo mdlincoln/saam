@@ -3,10 +3,10 @@ require 'csv'
 
 ######### Define arguments #########
 
-INPUT = "data/cleaned.json"
+INPUT = "data/JSON/cleaned.json"
 print "Enter keyword: "
 TARGET = gets.chomp # Enter keyword to be profiled
-OUTPUT = "data/#{TARGET}.csv"
+OUTPUT = "data/trends/#{TARGET}.csv"
 
 puts "Loading data..."
 data = JSON.parse(File.read(INPUT))
