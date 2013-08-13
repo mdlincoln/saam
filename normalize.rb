@@ -5,15 +5,11 @@ require 'json'
 ######### Private methods #########
 
 #  Normalize dates, e.g. "c. 1865" becomes "1865", and "1901-1902" becomes "1902".
-	if input.nil?
 def cleanDate(input)
 	cleaned = input.first.slice(/(\d*)(\D|$)/,1).to_i
+	if cleaned == 0
 		return nil
 	else
-		if normalized == 0
-			return nil
-		else
-		end
 		return cleaned
 	end
 end
