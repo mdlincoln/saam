@@ -13,10 +13,8 @@ trends = CSV.open(OUTPUT,"w")
 trends << ["year","total paintings","topic paintings"]
 
 
-
-step = 1800 # Enter the year to begin (default to 1800, as this is when SAAM collections begin to get interesting)
-
 ######### Check each year #########
+step = 1750 # Enter the year to begin (default to 1750, as this is when SAAM collections begin to get interesting)
 
 puts "Checking all years since #{step} for `#{TARGET}`"
 while step < 2012
