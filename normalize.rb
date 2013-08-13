@@ -14,16 +14,20 @@ def cleanDate(input)
 	end
 end
 
-# Returns a given number of topics from SAAM's hierarchical schema, e.g. "Study\botanical study\American mistletoe" can be reduced to "Study\botanical study" or "Study"
+# Takes an array of topics, splits strings that describe a multi-level hierarchy (e.g. "Cityscape\\Chile\\Puerto Monti" becomes ["Cityscape","Chile","Puerto Monti"] and returns an array of total UNIQUE topics)
 def cleanTopic(input)
-	topics = input.split("\\")
-	case topics.count
-	when 1
-		return topics[0]
-	when 2...10
-		return "#{topics[0]} - #{topics[1]}"
-	else
-	end
+
+	cleaned_list = Array.new
+
+	# Split up hierarchical keywords
+	input.each do |topic|
+		topic.split("\\").each do |individual|
+			cleaned_list << individual.downcase
+		end
+	end	
+
+	# Only keep unique records
+	return cleaned_list.uniq
 end
 
 ######### Set input and output files #########
@@ -42,12 +46,9 @@ raw_data.select {|k,v| v.has_key?("Date") && v.has_key?("Topic")}.each do |id, d
 	# Clean date
 	clean_date = cleanDate(data["Date"])
 
-	normalized_topics = Array.new
-	data["Topic"].each do |topic|
-		normalized_topics << cleanTopic(topic)
-	end
-	
 	# Clean topics
+	clean_topics = cleanTopic(data["Topic"])
+		
 	# Check that normalized values are still valid, e.g. items that had a Date value of "n.d" will no longer be valid after cleaning, and must be discarded
 	if clean_date.nil?
 		# Skips record
