@@ -10,8 +10,8 @@ OUTPUT = "data/#{TARGET}.csv"
 puts "Loading data..."
 data = JSON.parse(File.read(INPUT))
 trends = CSV.open(OUTPUT,"w")
-trends << ["year","total paintings","topic paintings"]
 
+trends << ["year","total paintings","topic paintings", "ratio"]
 
 ######### Check each year #########
 step = 1750 # Enter the year to begin (default to 1750, as this is when SAAM collections begin to get interesting)
@@ -33,7 +33,7 @@ while step < 2012
 	end
 
 	# Write out row to CSV
-	trends << [step,total,with_topic]
+	trends << [step,total,with_topic,ratio]
 
 	# Increment to the next year
 	step += 1
