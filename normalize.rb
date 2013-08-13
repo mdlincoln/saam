@@ -1,5 +1,3 @@
-require 'nokogiri'
-require 'csv'
 require 'json'
 
 ######### Private methods #########
