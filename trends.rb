@@ -12,8 +12,8 @@ trends << ["year","total paintings","topic paintings", TARGET]
 
 step = 1800
 
+puts "Checking all years since #{step} for `#{TARGET}`"
 while step < 2012
-	puts step
 	total = data.select{|k,v| v["Date"]==step}.count.to_f
 	with_topic = data.select{|k,v| v["Date"]==step && v["Topic"].include?(TARGET)}.count.to_f
 	
@@ -28,4 +28,4 @@ while step < 2012
 	step += 1
 end
 
-
+puts "Results written to '#{OUTPUT}'"
