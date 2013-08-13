@@ -10,7 +10,7 @@ data = JSON.parse(File.read(INPUT))
 trends = CSV.open(OUTPUT,"w")
 trends << ["year","total paintings","topic paintings", TARGET]
 
-step = 1750
+step = 1800
 
 while step < 2012
 	puts step
