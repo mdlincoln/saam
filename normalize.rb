@@ -31,8 +31,8 @@ def cleanTopic(input)
 end
 
 ######### Set input and output files #########
-INPUT = "output.json"
-OUTPUT = "normalized_saam.json"
+INPUT = "data/raw.json"
+OUTPUT = "data/cleaned.json"
 puts "Loading raw data..."
 raw_data = JSON.parse(File.read(INPUT))
 cleaned_data = Hash.new
