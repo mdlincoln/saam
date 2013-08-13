@@ -42,15 +42,34 @@ normalized_data = Hash.new
 # Loop through raw input
 raw_data.each do |id, data|
 	# Only include records that have both "Date" and "Topic"
-	if data.include?("Date") and data.include?("Topic")
+	unless data["Date"].nil? or data["Topic"].nil?
 
-		puts data
-		# # Normalize date
-		# normalized_date = normalizeDate(data["Date"])
+		# Normalize date
+		normalized_date = normalizeDate(data["Date"])
 
-		# # Normalize topics
-		# data["Topics"]
+		# Normalize topics
+		normalized_topics = Array.new
+		data["Topics"].each do |topic|
+			normalized_topics << cleanTopic(topic)
+		end
+
+		# Check that normalized values are still valid, e.g. items that had a Date value of "n.d" will no longer be valid after cleaning, and must be discarded
+		if normalized_date.nil? or normalized_topics.empty?
+			# Skips record
+		else
+			# Replace original values with normalized values, and store in normalized_data hash
+			data["Date"] = normalized_date
+			data["Topics"] = normalized_topics
+			normalized_data[id] = data
+		end
 	else
+		# Skips record
 	end
 end
 
+######### Write JSON file #########
+puts "Writing JSON..."
+File.open(OUTPUT,"w") do |file|
+	file.write(JSON.pretty_generate(normalized_data))
+end
+puts "Finished."
