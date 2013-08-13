@@ -4,7 +4,8 @@ require 'csv'
 ######### Define arguments #########
 
 INPUT = "data/cleaned.json"
-TARGET = "figure(s) in interior" # Enter keyword to be profiled
+print "Enter keyword: "
+TARGET = gets.chomp # Enter keyword to be profiled
 OUTPUT = "data/#{TARGET}.csv"
 
 puts "Loading data..."
