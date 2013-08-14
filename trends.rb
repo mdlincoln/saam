@@ -3,6 +3,9 @@ require 'csv'
 
 ######### Define arguments #########
 
+INPUT = "data/JSON/cleaned.json"
+TARGET = "western" # Enter primary keyword to be profiled
+OUTPUT = "data/trends/#{TARGET}.csv"
 
 puts "Loading data..."
 data = JSON.parse(File.read(INPUT))
@@ -22,6 +25,9 @@ while step < 2012
 	# How many total records from that year have the target topic?
 	with_topic = data.select{|k,v| 
 		v["Date"]==step && 
+		(
+			v["Topic"].include?("western" && "landscape")
+		)
 		}.count.to_f
 	
 	# Calculate the ratio of ptgs with topic to total paintings that year
