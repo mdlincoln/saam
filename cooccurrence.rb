@@ -16,7 +16,7 @@ puts QUERY
 
 puts "Loading data..."
 raw_data = JSON.parse(File.read(INPUT))
-first_pass = Array.new
+edge_list = Array.new
 
 # Create full edge list
 puts "Creating edge list..."
@@ -26,7 +26,7 @@ raw_data.each do |id, data|
 	label = "#{data["Title"]} - #{id}"
 	
 	data["Topic"].combination(2).each do |edge|
-		first_pass << [edge[0],edge[1],label,"Undirected",date]
+		edge_list << [edge[0],edge[1],label,"Undirected",date]
 	end
 end
 
@@ -34,15 +34,15 @@ end
 # Write out query edge lists
 puts "Writing CSV files..."
 list_header = ["source","target","label","type","date"]
-QUERY.each do |v|
-	start_date = v[:begin]
-	end_date = v[:end]
+QUERY.each do |q|
+	start_date = q[:begin]
+	end_date = q[:end]
 	filename = "#{start_date}-#{end_date}.csv"
 	print "Writing #{filename}..."
 	output = CSV.open("data/networks/test/#{filename}","w")
 	output << list_header
 
-	first_pass.select{ |entry| entry[4].between?(start_date,end_date) }.each do |line|
+	edge_list.select{ |entry| entry[4].between?(start_date,end_date) }.each do |line|
 		output << line
 	end
 	puts "done."
