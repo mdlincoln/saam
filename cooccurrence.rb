@@ -10,7 +10,7 @@ puts QUERY
 # [
 # 	{
 # 		"begin": 1750,		=> Lower bound
-# 		"end": 1750			=> Upper bound
+# 		"end": 1830			=> Upper bound
 # 	},... => Additional queries follow this
 # ]
 
