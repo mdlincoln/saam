@@ -24,7 +24,10 @@ while step < 2012
 	total = data.select{|k,v| v["Date"]==step}.count.to_f
 
 	# How many total records from that year have the target topic?
-	with_topic = data.select{|k,v| v["Date"]==step && v["Topic"].include?(TARGET)}.count.to_f
+	with_topic = data.select{|k,v| 
+		v["Date"]==step && 
+		v["Topic"].include?(TARGET)
+		}.count.to_f
 	
 	# Calculate the ratio of ptgs with topic to total paintings that year
 	if total == 0
