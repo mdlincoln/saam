@@ -8,10 +8,8 @@ puts QUERY
 # query.json should be written as follows:
 
 # [
-# 	{
-# 		"begin": 1750,		=> Lower bound
-# 		"end": 1830			=> Upper bound
-# 	},... => Additional queries follow this
+# 	{"begin": 1750, "end": 1830},
+# 	{"begin": 1831, "end": 1865}
 # ]
 
 puts "Loading data..."
