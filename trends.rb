@@ -3,10 +3,6 @@ require 'csv'
 
 ######### Define arguments #########
 
-INPUT = "data/JSON/cleaned.json"
-print "Enter keyword: "
-TARGET = gets.chomp # Enter keyword to be profiled
-OUTPUT = "data/trends/#{TARGET}.csv"
 
 puts "Loading data..."
 data = JSON.parse(File.read(INPUT))
@@ -26,7 +22,6 @@ while step < 2012
 	# How many total records from that year have the target topic?
 	with_topic = data.select{|k,v| 
 		v["Date"]==step && 
-		v["Topic"].include?(TARGET)
 		}.count.to_f
 	
 	# Calculate the ratio of ptgs with topic to total paintings that year
