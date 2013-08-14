@@ -1,28 +1,12 @@
-require 'nokogiri'
 require 'csv'
 require 'json'
 
-def normalizeDate(input)
-	return input.first.slice(/(\d*)(\D|$)/,1).to_i
-end
-
-def cleanTopic(input)
-	topics = input.split("\\")
-	case topics.count
-	when 1
-		return topics[0]
-	when 2...10
-		return "#{topics[0]} - #{topics[1]}"
-	else
-	end
-end
-
-INPUT = "output.json"
-OUTPUT_ONE = "1800-1849.csv"
-OUTPUT_TWO = "1850-1899.csv"
-OUTPUT_THREE = "1900-1935.csv"
-OUTPUT_FOUR = "1936-1965.csv"
-OUTPUT_FIVE = "1965-2011.csv"
+INPUT = "data/JSON/cleaned.json"
+OUTPUT_ONE = "data/networks/1800-1849.csv"
+OUTPUT_TWO = "data/networks/1850-1899.csv"
+OUTPUT_THREE = "data/networks/1900-1935.csv"
+OUTPUT_FOUR = "data/networks/1936-1965.csv"
+OUTPUT_FIVE = "data/networks/1965-2011.csv"
 
 raw_data = JSON.parse(File.read(INPUT))
 list_header = ["source","target","label","type","date"]
@@ -30,20 +14,12 @@ first_pass = Array.new
 
 # Create full edge list
 raw_data.each do |id, data|
-	unless data["Date"].nil?
-		date = normalizeDate(data["Date"])
-	end
+	date = data["Date"]
 
 	label = "#{data["Title"]} - #{id}"
 	
-	unless data["Topic"].nil?
-		topic_list = Array.new
-		data["Topic"].each do |t|
-			topic_list << cleanTopic(t)
-		end
-		topic_list.combination(2).each do |edge|
-			first_pass << [edge[0],edge[1],label,"Undirected",date]
-		end
+	data["Topic"].combination(2).each do |edge|
+		first_pass << [edge[0],edge[1],label,"Undirected",date]
 	end
 end
 
