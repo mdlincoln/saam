@@ -1,5 +1,6 @@
 require 'csv'
 require 'json'
+require 'ruby-progressbar'
 
 INPUT = "data/JSON/cleaned.json"
 OUT_NODES = "data/networks/paintings/nodes.csv"
@@ -19,19 +20,18 @@ puts "Creating node list..."
 raw_data.each do |id, data|
 	date = data["Date"]
 	title = data["Title"]
-	line = [id,title,date]
-	puts line
-	node_list << line
+	node_list << [id,title,date]
 end
+
+prog_bar = ProgressBar.create(:title => "records connected", :starting_at => 0, :total => count, :format => '|%b>>%i| %p%% %t')	# => Create a progress bar
 
 puts "Creating edge list..."
 raw_data.each do |id, data|
 	data["Topic"].each do |topic|
 		raw_data.select{|k,v| v["Topic"].include?(topic)}.each do |key, value|
-			line = [id,key,topic,"Undirected"]
-			puts line
-			edge_list << line
+			 edge_list << [id,key,topic,"Undirected"]
 		end
 	end
+	prog_bar.increment
 end
 
