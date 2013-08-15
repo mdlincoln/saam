@@ -4,14 +4,14 @@ require 'csv'
 ######### Define arguments #########
 
 INPUT = "data/JSON/cleaned.json"
-TARGET = "western" # Enter primary keyword to be profiled
+TARGET = "mountain" # Enter primary keyword to be profiled
 OUTPUT = "data/trends/#{TARGET}.csv"
 
 puts "Loading data..."
 data = JSON.parse(File.read(INPUT))
 trends = CSV.open(OUTPUT,"w")
 
-trends << ["year","total paintings","topic paintings", "ratio"]
+trends << [TARGET]
 
 ######### Check each year #########
 step = 1750 # Enter the year to begin (default to 1750, as this is when SAAM collections begin to get interesting)
@@ -26,7 +26,7 @@ while step < 2012
 	with_topic = data.select{|k,v| 
 		v["Date"]==step && 
 		(
-			v["Topic"].include?("western" && "landscape")
+			v["Topic"].include?("mountain")
 		)
 		}.count.to_f
 	
@@ -38,7 +38,7 @@ while step < 2012
 	end
 
 	# Write out row to CSV
-	trends << [step,total,with_topic,ratio]
+	trends << [ratio]
 
 	# Increment to the next year
 	step += 1
