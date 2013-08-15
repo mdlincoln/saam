@@ -11,6 +11,7 @@ puts "Loading data..."
 data = JSON.parse(File.read(INPUT))
 trends = CSV.open(OUTPUT,"w")
 
+# trends << ["year","total paintings","target paintings","ratio"]	# =>  Swap comments for either full table, or ratio column only
 trends << [TARGET]
 
 ######### Check each year #########
@@ -38,6 +39,7 @@ while step < 2012
 	end
 
 	# Write out row to CSV
+	# trends << [step,total,with_topic,ratio]	# => switch on to output full table
 	trends << [ratio]
 
 	# Increment to the next year
