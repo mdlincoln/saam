@@ -5,6 +5,7 @@ require 'ruby-progressbar'
 INPUT = "data/JSON/cleaned.json"
 OUT_NODES = "data/networks/paintings/nodes.csv"
 OUT_EDGES = "data/networks/paintings/edges.csv"
+EDGE_BOUND = 4 # => Define the minimum number of shared topics required to define an edge between nodes
 
 puts "Loading data..."
 raw_data = JSON.parse(File.read(INPUT))
@@ -38,7 +39,7 @@ combos.each do |pair|
 	topics_one = raw_data[id_one]["Topic"]
 	topics_two = raw_data[id_two]["Topic"]
 	weight = (topics_one & topics_two).count
-	if weight > 0
+	if weight > EDGE_BOUND
 		edge_list << [id_one,id_two,weight,"Undirected"]
 	else
 	end
