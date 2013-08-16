@@ -11,7 +11,7 @@ puts "Loading data..."
 raw_data = JSON.parse(File.read(INPUT))
 count = raw_data.count
 node_list = CSV.open(OUT_NODES,"w")
-node_list << ["id","label","date"]
+node_list << ["id","label","date","artist","topics","type","image"]
 edge_list = CSV.open(OUT_EDGES,"w")
 edge_list << ["source","target","weight","type"]
 
@@ -23,7 +23,14 @@ raw_data.each do |id, data|
 	id_list << id
 	date = data["Date"]
 	title = data["Title"]
-	node_list << [id,title,date]
+	type = data["Type"].first
+	artist = data["Artist"].first unless data["Artist"].nil?
+	topics = String.new
+	data["Topic"].each do |t|
+		topics.concat("#{t}; ")
+	end
+	image = data["Image"]
+	node_list << [id,title,date,artist,topics,type]
 end
 
 
