@@ -29,7 +29,7 @@ raw_data.each do |id, data|
 	data["Topic"].each do |t|
 		topics.concat("#{t}; ")
 	end
-	image = data["Image"]
+	image = "http://ids.si.edu/ids/deliveryService?max=120&id=#{data["Image"]}" # => This gives a link to a small image
 	node_list << [id,title,date,artist,topics,type]
 end
 
