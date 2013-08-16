@@ -2,9 +2,9 @@ require 'csv'
 require 'json'
 require 'ruby-progressbar'
 
-INPUT = "data/JSON/cleaned.json"
-OUT_NODES = "data/networks/paintings/nodes.csv"
-OUT_EDGES = "data/networks/paintings/edges.csv"
+INPUT = "all_data/JSON/cleaned.json"
+OUT_NODES = "all_data/networks/paintings/nodes.csv"
+OUT_EDGES = "all_data/networks/paintings/edges.csv"
 EDGE_BOUND = 4 # => Define the minimum number of shared topics required to define an edge between nodes
 
 puts "Loading data..."
