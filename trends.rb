@@ -3,9 +3,9 @@ require 'csv'
 
 ######### Define arguments #########
 
-INPUT = "data/JSON/cleaned.json"
 TARGET = "mountain" # Enter primary keyword to be profiled
-OUTPUT = "data/trends/#{TARGET}.csv"
+INPUT = "all_data/JSON/cleaned.json"
+OUTPUT = "all_data/trends/#{TARGET}.csv"
 
 puts "Loading data..."
 data = JSON.parse(File.read(INPUT))
