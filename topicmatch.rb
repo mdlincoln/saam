@@ -30,7 +30,7 @@ end
 puts "Calculating potential node combinations..."
 combos = id_list.combination(2)
 
-prog_bar = ProgressBar.create(:title => "records connected", :starting_at => 0, :total => combos.count, :format => '|%b>>%i| %p%% %t')	# => Create a progress bar
+prog_bar = ProgressBar.create(:title => "records connected", :starting_at => 0, :total => combos.count, :format => '%p%% |%b>>%i| %c %t')	# => Create a progress bar
 
 puts "Evaluating combinations..."
 combos.each do |pair|
