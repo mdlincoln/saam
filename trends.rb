@@ -1,5 +1,6 @@
 require 'json'
 require 'csv'
+require 'ruby-progressbar'
 
 ######### Define arguments #########
 
@@ -17,7 +18,11 @@ trends << [TARGET]
 ######### Check each year #########
 step = 1750 # Enter the year to begin (default to 1750, as this is when SAAM collections begin to get interesting)
 
+
 puts "Checking all years since #{step} for `#{TARGET}`"
+
+prog_bar = ProgressBar.create(:title => "Years checked", :starting_at => 0, :total => 2013-1750, :format => '%c |%b>>%i| %p%% %t')	# => Create a progress bar
+
 while step < 2012
 
 	# How many total records have that year?
@@ -44,6 +49,7 @@ while step < 2012
 
 	# Increment to the next year
 	step += 1
+	prog_bar.increment
 end
 
 puts "Results written to '#{OUTPUT}'"
