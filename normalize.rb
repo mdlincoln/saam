@@ -4,7 +4,7 @@ require 'json'
 
 #  Normalize dates, e.g. "c. 1865" becomes "1865", and "1901-1902" becomes "1902", and "n.d." returns nil.
 def cleanDate(input)
-	cleaned = input.first.slice(/(\d*)(\D|$)/,1).to_i
+	cleaned = input.first.slice(/(\d{4})/,1).to_i
 	if cleaned == 0
 		return nil
 	else
