@@ -47,7 +47,8 @@ puts "#{number} possible edges"
 
 prog_bar = ProgressBar.create(:title => "records connected", :starting_at => 0, :total => combos.count, :format => '%p%% |%b>>%i| %c %t')	# => Create a progress bar
 
-puts "Evaluating combinations..."
+puts "Evaluating edges..."
+connected = 0
 combos.each do |pair|
 	id_one = pair[0]
 	id_two = pair[1]
@@ -55,8 +56,12 @@ combos.each do |pair|
 	topics_two = set_data[id_two][:topic]
 	weight = (topics_one & topics_two).count
 	if weight > EDGE_BOUND
+		puts "#{id_one} <=> #{id_two}"
 		edge_list << [id_one,id_two,weight,"Undirected"]
+		connected += 1
 	else
 	end
 	prog_bar.increment
 end
+
+puts "#{connected} edges determined."
