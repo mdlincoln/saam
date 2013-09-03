@@ -9,7 +9,7 @@ INPUT = "all_data/JSON/cleaned.json"
 OUTPUT = "all_data/trends/#{TARGET}.csv"
 
 puts "Loading data..."
-data = JSON.parse(File.read(INPUT))
+data = JSON.parse(File.read(INPUT), :symbolize_names => true)
 trends = CSV.open(OUTPUT,"w")
 
 # trends << ["year","total paintings","target paintings","ratio"]	# =>  Swap comments for either full table, or ratio column only
@@ -26,13 +26,13 @@ prog_bar = ProgressBar.create(:title => "Years checked", :starting_at => 0, :tot
 while step < 2012
 
 	# How many total records have that year?
-	total = data.select{|k,v| v["Date"]==step}.count.to_f
+	total = data.select{|k,v| v[:date]==step}.count.to_f
 
 	# How many total records from that year have the target topic?
 	with_topic = data.select{|k,v| 
-		v["Date"]==step && 
+		v[:date]==step && 
 		(
-			v["Topic"].include?("mountain")
+			v[:topic].include?("cityscape")
 		)
 		}.count.to_f
 	
