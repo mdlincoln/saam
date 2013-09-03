@@ -27,15 +27,15 @@ id_list = Array.new
 puts "Creating node list..."
 set_data.each do |id, data|
 	id_list << id
-	date = data["Date"]
-	title = data["Title"]
-	type = data["Type"].first
-	artist = data["Artist"].first unless data["Artist"].nil?
+	date = data[:date]
+	title = data[:title]
+	type = data[:type].first
+	artist = data["artist"].first unless data["artist"].nil?
 	topics = String.new
-	data["Topic"].each do |t|
+	data[:topic].each do |t|
 		topics.concat("#{t}; ")
 	end
-	image = "http://ids.si.edu/ids/deliveryService?max=120&id=#{data["Image"]}" # => This gives a link to a small image
+	image = "http://ids.si.edu/ids/deliveryService?max=120&id=#{data[:Image]}" # => This gives a link to a small image
 	node_list << [id,title,date,artist,topics,type]
 end
 
@@ -51,8 +51,8 @@ puts "Evaluating combinations..."
 combos.each do |pair|
 	id_one = pair[0]
 	id_two = pair[1]
-	topics_one = raw_data[id_one]["Topic"]
-	topics_two = raw_data[id_two]["Topic"]
+	topics_one = set_data[id_one][:topic]
+	topics_two = set_data[id_two][:topic]
 	weight = (topics_one & topics_two).count
 	if weight > EDGE_BOUND
 		edge_list << [id_one,id_two,weight,"Undirected"]
