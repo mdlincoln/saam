@@ -29,8 +29,8 @@ def cleanTopic(input)
 end
 
 ######### Set input and output files #########
-INPUT = "data/raw.json"
-OUTPUT = "data/cleaned.json"
+INPUT = "all_data/JSON/raw.json"
+OUTPUT = "all_data/JSON/cleaned.json"
 puts "Loading raw data..."
 raw_data = JSON.parse(File.read(INPUT))
 cleaned_data = Hash.new

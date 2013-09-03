@@ -1,7 +1,7 @@
 require 'csv'
 require 'json'
 
-INPUT = "all_data/JSON/cleaned.json"
+INPUT = "aic/JSON/cleaned.json"
 QUERY = JSON.parse(File.read("query.json"), :symbolize_names => true)
 puts QUERY
 
@@ -13,17 +13,17 @@ puts QUERY
 # ]
 
 puts "Loading data..."
-raw_data = JSON.parse(File.read(INPUT))
+raw_data = JSON.parse(File.read(INPUT), :symbolize_names => true)
 edge_list = Array.new
 
 # Create full edge list
 puts "Creating edge list..."
 raw_data.each do |id, data|
-	date = data["Date"]
+	date = data[:date]
 
 	label = "#{data["Title"]} - #{id}"
 	
-	data["Topic"].combination(2).each do |edge|
+	data[:topic].combination(2).each do |edge|
 		edge_list << [edge[0],edge[1],label,"Undirected",date]
 	end
 end
@@ -37,7 +37,7 @@ QUERY.each do |q|
 	end_date = q[:end]
 	filename = "#{start_date}-#{end_date}.csv"
 	print "Writing #{filename}..."
-	output = CSV.open("all_data/networks/cooccurrence/#{filename}","w")
+	output = CSV.open("aic/networks/#{filename}","w")
 	output << list_header
 
 	edge_list.select{ |entry| entry[4].between?(start_date,end_date) }.each do |line|

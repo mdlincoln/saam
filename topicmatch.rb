@@ -6,10 +6,16 @@ INPUT = "all_data/JSON/cleaned.json"
 OUT_NODES = "all_data/networks/paintings/nodes.csv"
 OUT_EDGES = "all_data/networks/paintings/edges.csv"
 EDGE_BOUND = 4 # => Define the minimum number of shared topics required to define an edge between nodes
+TIME_BEGIN = 1900
+TIME_END = 1940
 
 puts "Loading data..."
-raw_data = JSON.parse(File.read(INPUT))
-count = raw_data.count
+raw_data = JSON.parse(File.read(INPUT), :symbolize_names => true)
+puts "#{raw_data.count} records loaded."
+set_data = raw_data.select{|k,v| v[:date].between?(TIME_BEGIN,TIME_END)}
+puts "#{set_data.count} records between #{TIME_BEGIN} and #{TIME_END}"
+
+
 node_list = CSV.open(OUT_NODES,"w")
 node_list << ["id","label","date","artist","topics","type","image"]
 edge_list = CSV.open(OUT_EDGES,"w")
@@ -19,7 +25,7 @@ id_list = Array.new
 
 # Create full node list
 puts "Creating node list..."
-raw_data.each do |id, data|
+set_data.each do |id, data|
 	id_list << id
 	date = data["Date"]
 	title = data["Title"]
@@ -36,6 +42,8 @@ end
 
 puts "Calculating potential node combinations..."
 combos = id_list.combination(2)
+number = combos.count
+puts "#{number} possible edges"
 
 prog_bar = ProgressBar.create(:title => "records connected", :starting_at => 0, :total => combos.count, :format => '%p%% |%b>>%i| %c %t')	# => Create a progress bar
 

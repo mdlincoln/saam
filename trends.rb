@@ -4,9 +4,9 @@ require 'ruby-progressbar'
 
 ######### Define arguments #########
 
-TARGET = "mountain" # Enter primary keyword to be profiled
-INPUT = "all_data/JSON/cleaned.json"
-OUTPUT = "all_data/trends/#{TARGET}.csv"
+TARGET = "domestic" # Enter primary keyword to be profiled
+INPUT = "aic/JSON/cleaned.json"
+OUTPUT = "aic/trends/#{TARGET}.csv"
 
 puts "Loading data..."
 data = JSON.parse(File.read(INPUT), :symbolize_names => true)
@@ -32,7 +32,7 @@ while step < 2012
 	with_topic = data.select{|k,v| 
 		v[:date]==step && 
 		(
-			v[:topic].include?("cityscape")
+			v[:topic].include?("domestic")
 		)
 		}.count.to_f
 	
