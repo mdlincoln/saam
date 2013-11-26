@@ -10,7 +10,7 @@
 require 'csv'
 require 'json'
 
-INPUT = "aic/JSON/cleaned.json"
+INPUT = "data/JSON/cleaned.json"
 QUERY = JSON.parse(File.read("query.json"), :symbolize_names => true)
 puts QUERY
 
@@ -52,7 +52,7 @@ QUERY.each do |q|
 	end_date = q[:end]
 	filename = "#{start_date}-#{end_date}.csv"
 	print "Writing #{filename}..."
-	output = CSV.open("aic/networks/#{filename}","w")
+	output = CSV.open("data/networks/coocurrence/#{filename}","w")
 	output << list_header
 
 	edge_list.select{ |entry| entry[4].between?(start_date,end_date) }.each do |line|

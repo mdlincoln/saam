@@ -16,8 +16,8 @@ require 'ruby-progressbar'
 ######### Define arguments #########
 
 TARGET = "domestic" # Enter primary keyword to be profiled
-INPUT = "aic/JSON/cleaned.json"
-OUTPUT = "aic/trends/#{TARGET}.csv"
+INPUT = "data/JSON/cleaned.json"
+OUTPUT = "data/trends/#{TARGET}.csv"
 
 puts "Loading data..."
 data = JSON.parse(File.read(INPUT), :symbolize_names => true)

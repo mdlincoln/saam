@@ -8,3 +8,7 @@ directory 'data' do
 	directory 'data/networks'
 	directory 'data/trends'
 end
+
+directory 'data/networks' do
+	directory 'data/networks/coocurrence'
+	directory 'data/networks/topicmatch'

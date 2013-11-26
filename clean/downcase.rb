@@ -9,8 +9,8 @@
 require 'json'
 
 # Define input and output paths
-INPUT = "all_data/JSON/cleaned.json"
-OUTPUT = "all_data/JSON/downcase.json"
+INPUT = "data/JSON/cleaned.json"
+OUTPUT = "data/JSON/downcase.json"
 
 # Load JSON file into a hash
 puts "Loading raw data..."
