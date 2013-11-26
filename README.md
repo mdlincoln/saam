@@ -26,7 +26,22 @@ dates, and removing any objects that come without either "date" or
 
 ### `cooccurrence.rb`
 
+Creates an edge list (in CSV format) of topic keywords connected by edges when they co-exist in an artwork.
+You may define the timespan(s) of your query by writing in `query.json`.
+Lists are written to `data/networks/`, and can easily be loaded into a network analysis software such as [Gephi](https://gephi.org).
+
 #### `query.json`
+
+`query.json` should be written as follows:
+
+````json
+[
+    {"begin": 1750, "end": 1830},
+    {"begin": 1831, "end": 1865}
+]
+````
+
+This will cause `cooccurrence.rb` to output two node/edge list sets for each defined time period.
 
 ### `listtopics.rb`
 
