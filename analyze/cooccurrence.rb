@@ -1,3 +1,12 @@
+##################
+#
+# Creates an edge list (in CSV format) of topic keywords
+# connected by edges when they co-exist in an artwork. You may define
+# the timespan(s) of your query by writing in `query.json`. Lists are
+# written to `data/networks/`
+#
+###################
+
 require 'csv'
 require 'json'
 
@@ -19,10 +28,14 @@ edge_list = Array.new
 # Create full edge list
 puts "Creating edge list..."
 raw_data.each do |id, data|
+	# Retrieve the artwork date
 	date = data[:date]
 
+	# Define the labels for each node
 	label = "#{data["Title"]} - #{id}"
 	
+	# Calculate the various combinations of topics for each artwork.
+	# Each of these combinations will be recorded as an edge.
 	data[:topic].combination(2).each do |edge|
 		edge_list << [edge[0],edge[1],label,"Undirected",date]
 	end
@@ -33,6 +46,8 @@ end
 puts "Writing CSV files..."
 list_header = ["source","target","label","type","date"]
 QUERY.each do |q|
+
+	# Initialize the topic CSV
 	start_date = q[:begin]
 	end_date = q[:end]
 	filename = "#{start_date}-#{end_date}.csv"
