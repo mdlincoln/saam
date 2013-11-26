@@ -11,6 +11,10 @@ JSON output goes into the `data/json` directory.
 
 ### `downcase.rb`
 
+Downcases each attribute name in the SI JSON.
+SI objects can have inconsistent capitalization.
+This script tries to standardize that issue.
+
 ### `normalize.rb`
 
 ## `analyze/`
