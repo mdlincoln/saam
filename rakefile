@@ -1,0 +1,8 @@
+directory "data/JSON"
+directory "data/network/cooccurrence"
+directory "data/network/topicmatch"
+directory "data/trends"
+
+task :default => ["data/JSON", "data/network/cooccurrence", "data/network/topicmatch", "data/trends"] do
+	puts "Directories built."	
+end

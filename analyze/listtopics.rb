@@ -10,8 +10,8 @@ require 'csv'
 require 'ruby-progressbar'
 
 # Define input/output paths
-INPUT = "all_data/JSON/cleaned.json"
-OUTPUT = "all_data/trends/topiclist.csv"
+INPUT = "data/JSON/cleaned.json"
+OUTPUT = "data/trends/topiclist.csv"
 
 # Initialize the topic list csv
 list = CSV.open(OUTPUT,"w")

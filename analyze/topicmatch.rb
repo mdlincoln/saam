@@ -13,9 +13,9 @@ require 'ruby-progressbar'
 
 # Define input and output paths, as well as the threshold
 # of topics and timespan to be analyzed.
-INPUT = "all_data/JSON/cleaned.json"
-OUT_NODES = "all_data/networks/paintings/nodes.csv"
-OUT_EDGES = "all_data/networks/paintings/edges.csv"
+INPUT = "data/JSON/cleaned.json"
+OUT_NODES = "data/networks/topicmatch/nodes.csv"
+OUT_EDGES = "data/networks/topicmatch/edges.csv"
 EDGE_BOUND = 4 # => Define the minimum number of shared topics required to define an edge between nodes
 TIME_BEGIN = 1900
 TIME_END = 1940
