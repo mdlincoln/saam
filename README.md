@@ -17,6 +17,11 @@ This script tries to standardize that issue.
 
 ### `normalize.rb`
 
+Runs several cleaning methods on raw SI json downloaded from SI
+scrape, including splitting hierarchical keyword strings, munging
+dates, and removing any objects that come without either "date" or
+"topic" fields.
+
 ## `analyze/`
 
 ### `cooccurrence.rb`
