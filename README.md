@@ -26,6 +26,8 @@ You may now use the scripts below to clean and analyze your data.
 
 ## `clean/`
 
+You may call these scripts in order with `rake clean`.
+
 ### `downcase.rb`
 
 Downcases each attribute name in the SI JSON.
