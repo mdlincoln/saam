@@ -5,7 +5,7 @@ Scripts for scraping collection data from the Smithsonian American Art Museum.
 
 These scripts can be used to parse information collected from the Smithsonian Institution using [si-scrape](https://github.com/mdlincoln/si-scrape).
 JSON output goes into the `data/json` directory.
-(Run `rake` to set up the directories to receive the collections data.)
+(Run `rake` to set up the directories where you can deposit the raw collections data, and where the analytical scripts will output their data.)
 
 ## `clean/`
 
