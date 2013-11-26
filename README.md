@@ -57,6 +57,13 @@ loaded into Gephi or similar network visualization software.
 
 ### `trends.rb`
 
+This script creates a table of the ratios of a given attribute (say,
+keyword, or medium) per year covered by the collection. It will
+iterate year-by-year through the collection, counting artworks that
+match the query criteria (e.g. `v[:topic].include?("domestic")`) and
+calculate the ratio of that number to the total number of artworks
+done in that year.
+
 ***
 
 [Matthew D. Lincoln](http://matthewlincoln.net) | Ph.D Student, Department of Art History & Archaeology, University of Maryland, College Park
