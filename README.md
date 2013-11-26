@@ -9,6 +9,10 @@ These scripts can be used to parse information collected from the Smithsonian In
 
 ## Quick Startup
 
+Install [ruby-progressbar](https://github.com/jfelchner/ruby-progressbar):
+
+    gem install ruby-progressbar
+
 Clone the repo to your chosen directory and run `rake` to set up the necessary data directories:
 
 ````sh
