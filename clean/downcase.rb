@@ -10,7 +10,7 @@ require 'json'
 
 # Define input and output paths
 INPUT = "data/JSON/cleaned.json"
-OUTPUT = "data/JSON/downcase.json"
+OUTPUT = "data/JSON/cleaned.json"
 
 # Load JSON file into a hash
 puts "Loading raw data..."

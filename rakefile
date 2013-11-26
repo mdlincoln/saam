@@ -3,6 +3,17 @@ directory "data/network/cooccurrence"
 directory "data/network/topicmatch"
 directory "data/trends"
 
+desc "Build data directory structure."
 task :default => ["data/JSON", "data/network/cooccurrence", "data/network/topicmatch", "data/trends"] do
 	puts "Directories built."	
+end
+
+file "data/JSON/raw.json"
+desc "Clean raw JSON file"
+task :clean => [:default, "data/JSON/raw.json"] do
+	puts "Regularizing JSON"
+	ruby 'clean/normalize.rb'
+	puts "Downcasing JSON"
+	ruby "clean/downcase.rb"
+	puts "Cleaning finished."
 end
