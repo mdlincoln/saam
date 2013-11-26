@@ -1,15 +1,8 @@
-task :default => [:data] do
-		
-end
+directory "data/JSON"
+directory "data/network/cooccurrence"
+directory "data/network/topicmatch"
+directory "data/trends"
 
-desc "Create directory structure"
-directory 'data' do
-	directory 'data/json'
-	directory 'data/networks'
-	directory 'data/trends'
-end
-
-directory 'data/networks' do
-	directory 'data/networks/coocurrence'
-	directory 'data/networks/topicmatch'
+task :default => ["data/JSON", "data/network/cooccurrence", "data/network/topicmatch", "data/trends"] do
+	puts "Directories built."	
 end
