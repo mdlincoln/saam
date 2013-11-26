@@ -45,6 +45,9 @@ This will cause `cooccurrence.rb` to output two node/edge list sets for each def
 
 ### `listtopics.rb`
 
+This script will output a frequency list of the values for any given attribute you pass into it.
+For example, the default script searches through the `topic` attribute of each object, outputting a table with the frequencies of each unique topic.
+
 ### `topicmatch.rb`
 
 ### `trends.rb`
