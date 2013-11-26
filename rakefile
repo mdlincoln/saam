@@ -12,3 +12,4 @@ end
 directory 'data/networks' do
 	directory 'data/networks/coocurrence'
 	directory 'data/networks/topicmatch'
+end
