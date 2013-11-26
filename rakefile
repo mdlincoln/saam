@@ -1,0 +1,10 @@
+task :default => [:data] do
+		
+end
+
+desc "Create directory structure"
+directory 'data' do
+	directory 'data/json'
+	directory 'data/networks'
+	directory 'data/trends'
+end
