@@ -1,3 +1,14 @@
+#########
+#
+# This script creates a table of the ratios of a given attribute (say,
+# keyword, or medium) per year covered by the collection. It will
+# iterate year-by-year through the collection, counting artworks that
+# match the query criteria (e.g. `v[:topic].include?("domestic")`) and
+# calculate the ratio of that number to the total number of artworks
+# done in that year.
+#
+#########
+
 require 'json'
 require 'csv'
 require 'ruby-progressbar'
@@ -25,6 +36,8 @@ prog_bar = ProgressBar.create(:title => "Years checked", :starting_at => 0, :tot
 
 while step < 2012
 
+	###### DEFINE QUERY HERE #######
+
 	# How many total records have that year?
 	total = data.select{|k,v| v[:date]==step}.count.to_f
 
@@ -35,6 +48,8 @@ while step < 2012
 			v[:topic].include?("domestic")
 		)
 		}.count.to_f
+
+	#################################
 	
 	# Calculate the ratio of ptgs with topic to total paintings that year
 	if total == 0
