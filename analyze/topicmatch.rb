@@ -1,7 +1,18 @@
+####################
+# 
+# This script will create a node and edge list CSV of artworks connected
+# when they share more than a set threshold number of keywords. These
+# node and edge lists are written to `data/networks`, and can then be
+# loaded into Gephi or similar network visualization software.
+# 
+####################
+
 require 'csv'
 require 'json'
 require 'ruby-progressbar'
 
+# Define input and output paths, as well as the threshold
+# of topics and timespan to be analyzed.
 INPUT = "all_data/JSON/cleaned.json"
 OUT_NODES = "all_data/networks/paintings/nodes.csv"
 OUT_EDGES = "all_data/networks/paintings/edges.csv"
@@ -9,13 +20,14 @@ EDGE_BOUND = 4 # => Define the minimum number of shared topics required to defin
 TIME_BEGIN = 1900
 TIME_END = 1940
 
+# Load collection data and create a subset within the defined time period
 puts "Loading data..."
 raw_data = JSON.parse(File.read(INPUT), :symbolize_names => true)
 puts "#{raw_data.count} records loaded."
 set_data = raw_data.select{|k,v| v[:date].between?(TIME_BEGIN,TIME_END)}
 puts "#{set_data.count} records between #{TIME_BEGIN} and #{TIME_END}"
 
-
+# Initialize node and edge list CSV files
 node_list = CSV.open(OUT_NODES,"w")
 node_list << ["id","label","date","artist","topics","type","image"]
 edge_list = CSV.open(OUT_EDGES,"w")
@@ -23,7 +35,7 @@ edge_list << ["source","target","weight","type"]
 
 id_list = Array.new
 
-# Create full node list
+# Create a node list with various attributes
 puts "Creating node list..."
 set_data.each do |id, data|
 	id_list << id
@@ -39,7 +51,7 @@ set_data.each do |id, data|
 	node_list << [id,title,date,artist,topics,type]
 end
 
-
+# Calculate potential node combinations, writing them to an array
 puts "Calculating potential node combinations..."
 combos = id_list.combination(2)
 number = combos.count
@@ -47,6 +59,8 @@ puts "#{number} possible edges"
 
 prog_bar = ProgressBar.create(:title => "records connected", :starting_at => 0, :total => combos.count, :format => '%p%% |%b>>%i| %c %t')	# => Create a progress bar
 
+# Evaluate every potential node combination. If it passes the defined
+# EDGE_BOUND threshold, write that artwork pair to the edge list CSV.
 puts "Evaluating edges..."
 connected = 0
 combos.each do |pair|

@@ -50,6 +50,11 @@ For example, the default script searches through the `topic` attribute of each o
 
 ### `topicmatch.rb`
 
+This script will create a node and edge list CSV of artworks connected
+when they share more than a set threshold number of keywords. These
+node and edge lists are written to `data/networks`, and can then be
+loaded into Gephi or similar network visualization software.
+
 ### `trends.rb`
 
 ***
