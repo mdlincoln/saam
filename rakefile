@@ -34,7 +34,7 @@ task :query => ["analyze/trendquery.yml"] do
 			superset_list << "#{key}: #{value}"
 		end
 	end
-	if query_object.superset_and?
+	if query_object.superset_and
 		puts superset_list.join(" && ")
 	else
 		puts superset_list.join(" || ")
@@ -46,7 +46,7 @@ task :query => ["analyze/trendquery.yml"] do
 			subset_list << "#{key}: #{value}"
 		end
 	end
-	if query_object.subset_and?
+	if query_object.subset_and
 		puts subset_list.join(" && ")
 	else
 		puts subset_list.join(" || ")

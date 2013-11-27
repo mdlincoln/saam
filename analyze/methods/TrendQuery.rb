@@ -1,4 +1,7 @@
 class TrendQuery
+
+	attr_accessor :startyear, :endyear, :superset_and, :superset_parts, :subset_and, :subset_parts
+
 	def initialize(query_hash)
 		@startyear = query_hash[:startyear]
 		@endyear = query_hash[:endyear]
@@ -14,29 +17,5 @@ class TrendQuery
 
 	def inspect
 		return "Start date: #{@startyear}; End date: #{@endyear}\nSuperset => Inclusive? #{@superset_and}; Parts: #{@superset_parts}\nSubset => Inclusive? #{@subset_and}; Parts: #{@subset_parts}"
-	end
-
-	def start_year
-		return @startyear
-	end
-
-	def end_year
-		return @endyear
-	end
-
-	def superset_and?
-		return @superset_and
-	end
-
-	def superset_parts
-		return @superset_parts
-	end
-
-	def subset_and?
-		return @subset_and
-	end
-
-	def subset_parts
-		return @subset_parts
 	end
 end
