@@ -1,4 +1,4 @@
-require '~/Development/saam/analyze/methods/TrendQuery.rb'
+require_relative 'methods/TrendQuery.rb'
 require 'JSON'
 
 directory "data/JSON"
