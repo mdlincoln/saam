@@ -1,8 +1,11 @@
+require 'JSON'
+
 class TrendQuery
 
 	attr_accessor :startyear, :endyear, :superset_and, :superset_parts, :subset_and, :subset_parts
 
-	def initialize(query_hash)
+	def initialize(query_file)
+		query_hash = JSON.parse(query_file, :symbolize_names => true)
 		@startyear = query_hash[:startyear]
 		@endyear = query_hash[:endyear]
 		
