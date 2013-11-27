@@ -1,3 +1,6 @@
+require '~/Development/saam/analyze/methods/TrendQuery.rb'
+require 'JSON'
+
 directory "data/JSON"
 directory "data/network/cooccurrence"
 directory "data/network/topicmatch"
@@ -16,4 +19,36 @@ task :clean => [:default, "data/JSON/raw.json"] do
 	puts "Downcasing JSON"
 	ruby "clean/downcase.rb"
 	puts "Cleaning finished."
+end
+
+file "analyze/trendquery.yml"
+desc "Runs the query specified in analyze/trendquery.yml"
+task :query => ["analyze/trendquery.yml"] do
+	query_hash = JSON.parse(File.read("analyze/trendquery.json"), :symbolize_names => true)
+	query_object = TrendQuery.new(query_hash)
+	puts query_object.inspect
+	
+	superset_list = []
+	for part in query_object.superset_parts do
+		part.each do |key,value|
+			superset_list << "#{key}: #{value}"
+		end
+	end
+	if query_object.superset_and?
+		puts superset_list.join(" && ")
+	else
+		puts superset_list.join(" || ")
+	end
+
+	subset_list = []
+	for part in query_object.subset_parts do
+		part.each do |key,value|
+			subset_list << "#{key}: #{value}"
+		end
+	end
+	if query_object.subset_and?
+		puts subset_list.join(" && ")
+	else
+		puts subset_list.join(" || ")
+	end
 end
