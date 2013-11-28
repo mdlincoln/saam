@@ -19,7 +19,7 @@ task :clean => [:default, "data/JSON/raw.json"] do
 end
 
 desc "Create a frequency list for a given attribute"
-task :frequency, :attribute do |t, args|
+task :frequency, [:attribute] do |t, args|
 	TOPIC = args[:attribute].to_sym
 	load 'analyze/listtopics.rb'
 end
