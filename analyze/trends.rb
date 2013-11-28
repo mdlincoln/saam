@@ -12,12 +12,17 @@
 require 'json'
 require 'csv'
 require 'ruby-progressbar'
+require_relative 'methods/TrendQuery'
 
 ######### Define arguments #########
 
 TARGET = "domestic" # Enter primary keyword to be profiled
 INPUT = "data/JSON/cleaned.json"
+QUERY_PATH = "analyze/trendquery.json"
 OUTPUT = "data/trends/#{TARGET}.csv"
+QUERY = TrendQuery.new(File.read(QUERY_PATH))
+
+puts QUERY.inspect
 
 puts "Loading data..."
 data = JSON.parse(File.read(INPUT), :symbolize_names => true)
@@ -27,14 +32,14 @@ trends = CSV.open(OUTPUT,"w")
 trends << [TARGET]
 
 ######### Check each year #########
-step = 1750 # Enter the year to begin (default to 1750, as this is when SAAM collections begin to get interesting)
+step = QUERY.startyear # Enter the year to begin (default to 1750, as this is when SAAM collections begin to get interesting)
 
 
 puts "Checking all years since #{step} for `#{TARGET}`"
 
 prog_bar = ProgressBar.create(:title => "Years checked", :starting_at => 0, :total => 2013-1750, :format => '%c |%b>>%i| %p%% %t')	# => Create a progress bar
 
-while step < 2012
+while step < QUERY.endyear
 
 	###### DEFINE QUERY HERE #######
 
