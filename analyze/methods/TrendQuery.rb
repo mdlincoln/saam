@@ -1,3 +1,5 @@
+# An attempt to define a query object for trends.rb
+
 require 'JSON'
 
 class TrendQuery
