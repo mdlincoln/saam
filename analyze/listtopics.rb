@@ -26,7 +26,7 @@ raw_topics = Array.new
 puts "#{data.count} records loaded"
 puts "Retrieving topics..."
 data.each do |k,v|
-	raw_topics << v.values_at(:Topic)
+	raw_topics << v.values_at(TOPIC.to_sym)
 end
 
 # Create a list of unique topics, eliminating repeats

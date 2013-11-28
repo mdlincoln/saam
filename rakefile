@@ -17,3 +17,9 @@ task :clean => [:default, "data/JSON/raw.json"] do
 	ruby "clean/downcase.rb"
 	puts "Cleaning finished."
 end
+
+desc "Create a frequency list for a given attribute"
+task :frequency, :attribute do |t, args|
+	TOPIC = args[:attribute].to_sym
+	load 'analyze/listtopics.rb'
+end
